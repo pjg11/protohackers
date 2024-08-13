@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/binary"
+	"log"
 	"net"
 
 	"protohackers/server"
@@ -55,5 +56,8 @@ func meanstoanend(conn net.Conn) {
 }
 
 func main() {
-	server.Run(meanstoanend)
+	err := server.RunTCP(meanstoanend)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

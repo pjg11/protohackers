@@ -11,10 +11,13 @@ import (
 func echo(conn net.Conn) {
 	_, err := io.Copy(conn, conn)
 	if err != nil {
-		log.Fatal("copy: ", err.Error())
+		log.Fatal(err)
 	}
 }
 
 func main() {
-	server.Run(echo)
+	err := server.RunTCP(echo)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

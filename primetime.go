@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"encoding/json"
+	"log"
 	"math/big"
 	"net"
 
@@ -57,5 +58,8 @@ func primetime(conn net.Conn) {
 }
 
 func main() {
-	server.Run(primetime)
+	err := server.Run(primetime)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"net"
 	"strings"
 
@@ -75,5 +76,8 @@ func budgetchat(conn net.Conn) {
 
 func main() {
 	users = make(map[string]User)
-	server.Run(budgetchat)
+	err := server.RunTCP(budgetchat)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

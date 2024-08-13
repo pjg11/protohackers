@@ -1,14 +1,14 @@
 package server
 
 import (
-	"net"
 	"log"
+	"net"
 )
 
-func Run(handle func(net.Conn)) (error) {
+func RunTCP(handle func(net.Conn)) error {
 	ln, err := net.Listen("tcp", ":10000")
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	defer ln.Close()
 
@@ -17,7 +17,7 @@ func Run(handle func(net.Conn)) (error) {
 	for {
 		conn, err := ln.Accept()
 		if err != nil {
-			log.Fatal(err)
+			return err
 		}
 		go func() {
 			defer conn.Close()
