@@ -25,3 +25,17 @@ func RunTCP(handle func(net.Conn)) error {
 		}()
 	}
 }
+
+func RunUDP(handle func(net.PacketConn)) error {
+	ln, err := net.ListenPacket("udp", ":10000")
+	if err != nil {
+		return err
+	}
+	defer ln.Close()
+
+	log.Println("listening on port 10000")
+
+	for {
+		handle(ln)
+	}
+}
